@@ -22,8 +22,20 @@ class Todo
     {
         $this->path = plugin_dir_path(__FILE__);
     }
+
+    function register()
+    {
+        require_once $this->path . 'post-types/task.php';
+        add_action('rest_api_init', function () {
+            register_rest_route('aris/v1', '/task', array(
+                'methods' => 'POST',
+                'callback' => array($this, 'add_todo')
+            ));
+        });
+    }
 }
 
 if (class_exists('Todo')) {
     $Todo = new Todo();
+    $Todo->register();
 }
