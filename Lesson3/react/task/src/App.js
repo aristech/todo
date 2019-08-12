@@ -25,7 +25,7 @@ function App() {
           placeholder="add new task"
           type="text"
         />
-        <button className="submit" onClick={addTask}>
+        <button className="submit">
           add task
         </button>
       </div>
