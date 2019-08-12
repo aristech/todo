@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiUrl } from "./apiUrl";
 
 function App() {
@@ -25,19 +25,14 @@ function App() {
           placeholder="add new task"
           type="text"
         />
-        <button className="submit">
-          add task
-        </button>
+        <button className="submit">add task</button>
       </div>
 
       {data &&
         data.map(item => {
           return (
             <li key={item.id} className="list-item">
-              {item.title.rendered}{" "}
-              <button className="submit">
-                x
-              </button>
+              {item.title.rendered} <button className="submit">x</button>
             </li>
           );
         })}

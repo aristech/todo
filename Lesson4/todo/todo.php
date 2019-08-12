@@ -27,6 +27,7 @@ class Todo
     {
         require_once $this->path . 'post-types/task.php';
         add_action('wp_enqueue_scripts', 'wp_scripts');
+        add_shortcode('todo', array($this, 'shortcode_todo'));
         add_action('rest_api_init', function () {
             register_rest_route('aris/v1', '/task', array(
                 'methods' => 'POST',
@@ -34,7 +35,7 @@ class Todo
             ));
             register_rest_route('aris/v1', '/deleteTask', array(
                 'methods' => 'post',
-                'callback' => 'delete_task',
+                'callback' => array($this, 'delete_task')
             ));
         });
     }
@@ -47,6 +48,16 @@ class Todo
             'usr' => $user_ID,
             'nonce' => wp_create_nonce('wp_rest')
         ));
+    }
+
+    function shortcode_todo()
+    {
+        ob_start();
+        echo '<noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>';
+        $data = ob_get_contents();
+        ob_end_clean();
+        return $data;
     }
 
     function add_task(WP_REST_Request $request)

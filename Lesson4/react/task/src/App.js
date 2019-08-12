@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiUrl } from "./apiUrl";
 
 //const wpApiTodo = window.wpApiTodo;
@@ -23,7 +23,7 @@ function App() {
       return;
     } else {
       const data = { title: input };
-      await fetch(`${apiUrl}/wp-json/aris/v1/todos`, {
+      await fetch(`${apiUrl}/wp-json/aris/v1/task`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -43,7 +43,7 @@ function App() {
 
   const deleteTask = async id => {
     const data = { postId: id };
-    await fetch(`${apiUrl}/wp-json/aris/v1/deleteTodo`, {
+    await fetch(`${apiUrl}/wp-json/aris/v1/deleteTask`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -69,7 +69,9 @@ function App() {
           placeholder="add new task"
           type="text"
         />
-        <button className="submit">add task</button>
+        <button className="submit" onClick={addTask}>
+          add task
+        </button>
       </div>
 
       {data &&
