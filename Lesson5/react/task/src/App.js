@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { apiUrl } from "./apiUrl";
 
+//const wpApiTodo = window.wpApiTodo;
+
 function App() {
   const [data, setData] = useState([]);
   const [input, setInput] = useState("");
@@ -13,6 +15,7 @@ function App() {
     const dataRes = await fetch(`${apiUrl}/wp-json/wp/v2/task`);
     const data = await dataRes.json();
     setData(data);
+    //console.log(wpApiTodo);
   };
 
   const addTask = async () => {

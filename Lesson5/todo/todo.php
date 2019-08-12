@@ -21,12 +21,13 @@ class Todo
     function __construct()
     {
         $this->path = plugin_dir_path(__FILE__);
+        $this->url = plugin_dir_url(__FILE__);
     }
 
     function register()
     {
         require_once $this->path . 'post-types/task.php';
-
+        add_action('wp_enqueue_scripts', array($this, 'wp_scripts'));
         add_shortcode('todo', array($this, 'shortcode_todo'));
         add_action('rest_api_init', function () {
             register_rest_route('aris/v1', '/task', array(
@@ -38,6 +39,18 @@ class Todo
                 'callback' => array($this, 'delete_task')
             ));
         });
+    }
+
+    function wp_scripts()
+    {
+        global $user_ID;
+        wp_enqueue_script('todo', $this->url . 'js/todo.js', array(), '0.0.1', true);
+        wp_enqueue_script('chunk', $this->url . 'js/2.23a43cfa.chunk.js', array(), '0.0.1', true);
+        wp_enqueue_script('main', $this->url . 'js/main.1ce48ab1.chunk.js', array(), '0.0.1', true);
+        wp_localize_script('main', 'wpApiTodo', array(
+            'usr' => $user_ID,
+            'nonce' => wp_create_nonce('wp_rest')
+        ));
     }
 
     function shortcode_todo()
