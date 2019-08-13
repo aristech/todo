@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { apiUrl } from "./apiUrl";
 
-//const wpApiTodo = window.wpApiTodo;
-
+// Start app
 function App() {
   const [data, setData] = useState([]);
   const [input, setInput] = useState("");
 
+  // Runs once when window loads
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Fetch all tasks
   const fetchData = async () => {
     const dataRes = await fetch(`${apiUrl}/wp-json/wp/v2/task`);
     const data = await dataRes.json();
     setData(data);
-    //console.log(wpApiTodo);
   };
 
+  // Add new task
   const addTask = async () => {
     if (input === "") {
       return;
@@ -41,6 +42,7 @@ function App() {
     }
   };
 
+  // Delete task
   const deleteTask = async id => {
     const data = { postId: id };
     await fetch(`${apiUrl}/wp-json/aris/v1/deleteTask`, {
@@ -61,6 +63,7 @@ function App() {
   };
 
   return (
+
     <div className="App">
       <div className="input-box">
         <input
@@ -88,5 +91,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
