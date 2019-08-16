@@ -3,6 +3,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Board from "./board/Board";
 import Modal from "./modal/Modal";
 import { apiUrl } from "../apiUrl";
+const wpApiTodo = window.wpApiTodo;
 
 class App extends React.Component {
   state = {
@@ -21,7 +22,7 @@ class App extends React.Component {
 
   // Fetch all tasks
   fetchData = async () => {
-    const dataRes = await fetch(`${apiUrl}/wp-json/aris/v1/data`);
+    const dataRes = await fetch(`${wpApiTodo.url}/wp-json/aris/v1/data`);
     const data = await dataRes.json();
     const start = data.filter(item => item.category === "start");
     const doing = data.filter(item => item.category === "doing");
@@ -114,7 +115,7 @@ class App extends React.Component {
       this.setState(newState);
 
       const data = { postId: draggableId, category: destination.droppableId };
-      fetch(`${apiUrl}/wp-json/aris/v1/move_task`, {
+      fetch(`${wpApiTodo.url}/wp-json/aris/v1/move_task`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -139,7 +140,7 @@ class App extends React.Component {
         title: this.state.title,
         description: this.state.description
       };
-      await fetch(`${apiUrl}/wp-json/aris/v1/task`, {
+      await fetch(`${wpApiTodo.url}/wp-json/aris/v1/task`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -162,7 +163,7 @@ class App extends React.Component {
 
   deleteTask = async id => {
     const data = { postId: id };
-    await fetch(`${apiUrl}/wp-json/aris/v1/deleteTask`, {
+    await fetch(`${wpApiTodo.url}/wp-json/aris/v1/deleteTask`, {
       method: "POST",
       headers: {
         Accept: "application/json",

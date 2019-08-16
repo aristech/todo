@@ -60,8 +60,9 @@ class Todo
         wp_enqueue_style('task', $this->url . 'static/css/main.19bfba71.chunk.css');
         wp_enqueue_script('todo', $this->url . 'static/todo.js', array(), '0.0.1', true);
         wp_enqueue_script('chunk', $this->url . 'static/js/2.29d0387c.chunk.js', array(), '0.0.1', true);
-        wp_enqueue_script('main', $this->url . 'static/js/main.344299b2.chunk.js', array(), '0.0.1', true);
+        wp_enqueue_script('main', $this->url . 'static/js/main.0a86356a.chunk.js', array(), '0.0.1', true);
         wp_localize_script('main', 'wpApiTodo', array(
+            'url' => get_site_url(),
             'usr' => $user_ID,
             'nonce' => wp_create_nonce('wp_rest')
         ));
@@ -177,3 +178,4 @@ if (class_exists('Todo')) {
     $Todo = new Todo();
     $Todo->register();
 }
+
