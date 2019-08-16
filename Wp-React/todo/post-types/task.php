@@ -42,6 +42,7 @@ function task_init()
         'rewrite'               => true,
         'query_var'             => true,
         'menu_position'         => null,
+        'taxonomies'            => array('category'),
         'menu_icon'             => 'dashicons-menu-alt3',
         'show_in_rest'          => true,
         'rest_base'             => 'task',
